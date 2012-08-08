@@ -9,7 +9,6 @@ import android.content.Context;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.Environment;
-import android.provider.SyncStateContract.Constants;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -56,5 +55,4 @@ public class PhotoHandler implements PictureCallback {
 
 		return new File(sdDir, "CameraAPIDemo");
 	}
-
 }
