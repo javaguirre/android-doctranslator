@@ -9,7 +9,7 @@ public class TessHandler {
 	public TessHandler() {}
 
 	//TODO Change lang prefix for traineddata files
-	protected void convertToText(String filename, String language) {
+	protected String convertToText(String filename, String language) {
 //		File myDir = getExternalFilesDir(Environment.MEDIA_MOUNTED);
 		String myDir = "file:///android_asset/tess_data";
 		File myImage = new File(filename);
@@ -20,5 +20,7 @@ public class TessHandler {
 
 		String recognizedText = baseApi.getUTF8Text(); // Log or otherwise display this string...
 		baseApi.end();
+
+		return recognizedText;
 	}
 }

@@ -3,18 +3,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:contentDescription="@string/image_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    />
+
     <Button
         android:id="@+id/captureFront"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:onClick="onClick"
-        android:text="Make Photo"/>
+        android:onClick="takePhoto"
+        android:text="@string/take_photo"/>
 
-    <Label
+    <TextView
         android:id="@+id/result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-    />
+        android:layout_below="@+id/captureFront"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp"
+        android:hint="@string/picture_file_hint" />
+
+    <Button
+        android:id="@+id/convertText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:onClick="convertToText"
+        android:text="@string/convert_to_text"/>
+    <Button
+        android:id="@+id/translateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:onClick="translateText"
+        android:text="@string/translate"/>
 
 </RelativeLayout>

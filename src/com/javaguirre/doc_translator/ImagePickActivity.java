@@ -20,7 +20,7 @@ public class ImagePickActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		imageView = (ImageView) findViewById(R.id.result);
+		imageView = (ImageView) findViewById(R.id.imageView);
 	}
 	
 	public void pickImage(View view) {

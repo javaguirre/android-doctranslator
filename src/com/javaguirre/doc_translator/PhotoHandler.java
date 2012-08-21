@@ -16,43 +16,34 @@ public class PhotoHandler implements PictureCallback {
 
 	private final static String DEBUG_TAG = "MakePhotoActivity";
 	private Context context;
+	private String filename;
+	private File directory;
 
-	public PhotoHandler(Context context) {
+	public PhotoHandler(Context context, File directory, String filename) {
 		this.context = context;
-	}
+		this.directory = directory;
+		this.filename = filename;
 
-	public void onPictureTaken(byte[] data, Camera camera) {
-
-		File pictureFileDir = getDir();
-
-		if(!pictureFileDir.exists() && ! pictureFileDir.mkdirs()) {
+		if(!this.directory.exists() && ! this.directory.mkdirs()) {
 			Log.d(DEBUG_TAG, "Can't create directory to save image");
 			Toast.makeText(context, "Can't create directory to save image", Toast.LENGTH_LONG).show();
 
 			return;
 		}
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmmss");
-		String date = dateFormat.format(new Date());
-		String photoFile = "Picture_" + date + ".jpg";
-		String filename = pictureFileDir.getPath() + File.separator + photoFile;
+	}
 
-		File pictureFile = new File(filename);
+	public void onPictureTaken(byte[] data, Camera camera) {
+		File pictureFile = new File(this.directory + File.separator + this.filename);
 
 		try {
 			FileOutputStream fos = new FileOutputStream(pictureFile);
 			fos.write(data);
 			fos.close();
-			Toast.makeText(context, "New Image saved: " + photoFile, Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "New Image saved: " + this.filename, Toast.LENGTH_LONG).show();
 		} catch(Exception error) {
 			Log.d(DEBUG_TAG, "File " + filename + " not saved: " + error.getMessage());
 			Toast.makeText(context, "Image could not be saved ", Toast.LENGTH_LONG).show();
 		}
-	}
-
-	private File getDir() {
-		File sdDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-
-		return new File(sdDir, "CameraAPIDemo");
 	}
 }
