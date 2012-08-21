@@ -6,12 +6,15 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,19 +48,22 @@ public class MakePhotoActivity extends Activity {
 		camera.takePicture(null, null, photoHandler);
 		TextView textView = (TextView) findViewById(R.id.result);
 		textView.setText(this.filename);
-//		Bitmap bmp = BitmapFactory.decodeFile(getDir() + File.separator + this.filename);
-//		ImageView imageView = (ImageView) findViewById(R.id.imageView);
-//	    imageView.setImageBitmap(bmp);
+
+		//FIXME IMAGE?
+		Bitmap bmp = BitmapFactory.decodeFile(getFilePath());
+		ImageView imageView = (ImageView) findViewById(R.id.imageView);
+	    imageView.setImageBitmap(bmp);
 	}
 
-	public void convertToText() {
+	public void convertToText(View view) {
 		TessHandler handler = new TessHandler();
-		String result = handler.convertToText(this.filename, "nld");
+		String result = handler.convertToText(getApplicationContext(), getFilePath(), "nld");
 		Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 	}
 
-	public void translateText() {
-
+	public void translateText(View view) {
+		TranslatorHandler handler = new TranslatorHandler();
+//		handler.translateText("nl", "en", text);
 	}
 
 	private int findFrontFacingCamera() {
@@ -94,6 +100,10 @@ public class MakePhotoActivity extends Activity {
 		File sdDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
 		return new File(sdDir, "doc_translator");
+	}
+
+	private String getFilePath() {
+		return getDir() + File.separator + this.filename;
 	}
 /*
     @Override

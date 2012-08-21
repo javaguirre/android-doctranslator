@@ -3,20 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:contentDescription="@string/image_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-    />
-
     <Button
         android:id="@+id/captureFront"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:onClick="takePhoto"
-        android:text="@string/take_photo"/>
+        android:text="@string/take_photo" />
 
     <TextView
         android:id="@+id/result"
@@ -24,22 +17,38 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/captureFront"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="17dp"
         android:hint="@string/picture_file_hint" />
 
     <Button
         android:id="@+id/convertText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/result"
+        android:layout_marginTop="20dp"
         android:onClick="convertToText"
-        android:text="@string/convert_to_text"/>
+        android:text="@string/convert_to_text" />
+
     <Button
         android:id="@+id/translateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignBaseline="@+id/convertText"
+        android:layout_alignBottom="@+id/convertText"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/convertText"
         android:onClick="translateText"
-        android:text="@string/translate"/>
+        android:text="@string/translate" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="82dp"
+        android:src="@drawable/ic_action_search"
+        android:contentDescription="@string/image_description" />
 
 </RelativeLayout>
