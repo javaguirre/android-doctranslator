@@ -11,5 +11,7 @@
     <string name="title_activity_take_photo">TakePhotoActivity</string>
     <string name="title_activity_convert_text">ConvertTextActivity</string>
     <string name="title_activity_translate_text">TranslateTextActivity</string>
+    <string name="default_text">Converted Text</string>
+    <string name="image_desc">Image Desc</string>
 
 </resources>

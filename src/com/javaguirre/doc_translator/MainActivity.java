@@ -26,7 +26,8 @@ public class MainActivity extends Activity {
 	public final static String DEBUG_TAG = "MainActivity";
 	public static final String ALBUM_NAME = "Doc Translator";
 	public static final String JPEG_FILE_PREFIX = "Picture";
-	public static final String JPEG_FILE_SUFFIX = ".jpeg";
+	public static final String JPEG_FILE_SUFFIX = ".jpg";
+	public static final int TAKE_PHOTO = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,27 +42,44 @@ public class MainActivity extends Activity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	Bundle extras = data.getExtras();
-        Bitmap mImageBitmap = (Bitmap) extras.get("data");
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        imageView.setImageBitmap(mImageBitmap);
+    	//TODO Check for activity
+    	if(requestCode == TAKE_PHOTO) {
+	        if(resultCode != -1) {
+		    	Log.d("REQUEST CODE", "REQUEST CODE: " + requestCode);
+		    	Log.d("RESULT CODE", "RESULT CODE: " + resultCode);
+		    	Bundle extras = data.getExtras();
+		        Bitmap mImageBitmap = (Bitmap) extras.get("data");
+		        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+		        imageView.setImageBitmap(mImageBitmap);
+	        }
+	        else {
+	        	Log.d("WRONG!", "Something went really wrong!");
+	        }
+    	}
+    	Log.d("WRONG!", "DATA: " + data.getData());
     }
 
     public void takePhoto(View view) {
     	Toast.makeText(getApplicationContext(), "This is the Take Photo", Toast.LENGTH_SHORT).show();
     	Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-//    	File f = createImageFile();
-//    	takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-        startActivityForResult(takePictureIntent, 1);
+    	File f = createImageFile();
+    	takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+        startActivityForResult(takePictureIntent, TAKE_PHOTO);
     }
 
     public void convertText(View view) {
     	Toast.makeText(getApplicationContext(), "This is the convert text", Toast.LENGTH_SHORT).show();
+    	Intent convertToText = new Intent(this, ConvertTextActivity.class);
+//    	convertToText.putExtra("image_path", imagePath);
+    	startActivity(convertToText);
     }
 
     public void translateText(View view) {
     	Toast.makeText(getApplicationContext(), "This is the translate text", Toast.LENGTH_SHORT).show();
+    	Intent translateText = new Intent(this, TranslateTextActivity.class);
+//    	translateText.putExtra("converted_text", convertedText);
+    	startActivity(translateText);
     }
 
     public static boolean isIntentAvailable(Context context, String action) {
@@ -79,6 +97,16 @@ public class MainActivity extends Activity {
 		    ),
 		    ALBUM_NAME
 		);
+
+        boolean success = false;
+
+        if(!storageDir.exists()) {
+        	success = storageDir.mkdir();
+
+	        if(!success) {
+	        	Log.d("DIRECTORY STORAGE: ", "We couldn't create the dir");
+	        }
+        }
 
 		Log.d(DEBUG_TAG, "DIRECTORY STORAGE: " + storageDir);
 
@@ -102,6 +130,8 @@ public class MainActivity extends Activity {
 	    catch (IOException e) {
 	    	Log.d(DEBUG_TAG, "There was a failure creating the file");
 	    }
+
+        Log.d("IMAGE", "We have an image: " + image.getAbsolutePath());
 //        String mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
