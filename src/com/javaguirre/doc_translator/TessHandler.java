@@ -3,8 +3,6 @@ package com.javaguirre.doc_translator;
 import java.io.File;
 
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
 

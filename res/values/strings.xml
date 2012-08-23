@@ -1,7 +1,6 @@
 <resources>
 
     <string name="app_name">Doc Translator</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">Doc Translator</string>
     <string name="take_photo">Take a Photo</string>
@@ -9,5 +8,8 @@
     <string name="image_description">Image description</string>
     <string name="convert_to_text">Convert To Text</string>
     <string name="translate">Translate</string>
+    <string name="title_activity_take_photo">TakePhotoActivity</string>
+    <string name="title_activity_convert_text">ConvertTextActivity</string>
+    <string name="title_activity_translate_text">TranslateTextActivity</string>
 
 </resources>
