@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
 	public static final String JPEG_FILE_PREFIX = "Picture";
 	public static final String JPEG_FILE_SUFFIX = ".jpg";
 	public static final int TAKE_PHOTO = 1;
-	private static File mActualFile;
+	private static String mActualFilePath;
 	private static String mActualText;
 
     @Override
@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
 
 		        //you can create a new file name "test.jpg" in sdcard folder.
 		        File f = createImageFile();
-		        mActualFile = f;
+		        mActualFilePath = f.getAbsolutePath();
 
 		        //write the bytes in file
 		        FileOutputStream fo;
@@ -98,7 +98,7 @@ public class MainActivity extends Activity {
     public void convertText(View view) {
     	Toast.makeText(getApplicationContext(), "This is the convert text", Toast.LENGTH_SHORT).show();
     	Intent convertToText = new Intent(this, ConvertTextActivity.class);
-    	convertToText.putExtra("image_path", mActualFile.getAbsolutePath());
+    	convertToText.putExtra("image_path", mActualFilePath);
     	startActivity(convertToText);
     }
 
@@ -135,8 +135,6 @@ public class MainActivity extends Activity {
 	        }
         }
 
-		Log.d(DEBUG_TAG, "DIRECTORY STORAGE: " + storageDir);
-
 		return storageDir;
     }
 
@@ -157,8 +155,6 @@ public class MainActivity extends Activity {
 	    catch (IOException e) {
 	    	Log.d(DEBUG_TAG, "There was a failure creating the file");
 	    }
-
-        Log.d("IMAGE", "We have an image: " + file.getAbsolutePath());
 
         return file;
     }
